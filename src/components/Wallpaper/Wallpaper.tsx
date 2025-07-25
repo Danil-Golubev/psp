@@ -1,10 +1,9 @@
 // src/components/WallPaper.tsx
-import { useRef } from "react";
-import {  useFrame, useThree } from "@react-three/fiber";
-import * as THREE from "three";
-import { ShaderMaterial } from "three";
-import { fragmentShader, vertexShader } from "../../utils/shaders";
-
+import { useRef } from 'react';
+import { useFrame, useThree } from '@react-three/fiber';
+import * as THREE from 'three';
+import { ShaderMaterial } from 'three';
+import { fragmentShader, vertexShader } from '../../utils/shaders';
 
 export const WallPaper = () => {
   const matRef = useRef<ShaderMaterial>(null);
@@ -18,7 +17,7 @@ export const WallPaper = () => {
   });
 
   return (
-    <mesh position={[0, 0, -1]}>
+    <mesh position={[0, 0, -3.5]}>
       <planeGeometry args={[viewport.width, viewport.height]} />
       <shaderMaterial
         ref={matRef}
@@ -26,7 +25,7 @@ export const WallPaper = () => {
         fragmentShader={fragmentShader}
         uniforms={{
           iTime: { value: 0 },
-          iResolution: { value: new THREE.Vector2(size.width, size.height) },
+          iResolution: { value: new THREE.Vector2(size.width, size.height) }
         }}
       />
     </mesh>
