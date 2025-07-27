@@ -108,43 +108,12 @@
   height: 100px;
   overflow: hidden;
   pointer-events: auto;
-}
-
-.main-option.active {
-  opacity: 1;
-  transform: scale(1.1);
-}
-
-.main-option img {
-  height: 48px;
-  margin-bottom: 4px;
-}
-
-.interface-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.main-menu-strip {
-  width: 100%;
-  overflow: hidden;
   display: flex;
   justify-content: center;
   position: relative;
   margin-bottom: 20px;
 }
 
-.menu-track {
-  display: flex;
-  transition: transform 0.4s ease;
-  width: fit-content;
-}
-
-.main-option.active {
-  transform: scale(1.1);
-  opacity: 1;
-}
 .menu-wrapper {
   width: 960px;
   overflow: hidden;
@@ -160,7 +129,8 @@
 }
 
 .main-option {
-  flex: 0 0 calc(100% / 6) - 40px;
+  background-color: red;
+  flex: 0 0 calc(100% / 6 - 40px);
   width: 120px;
   padding: 10px;
   text-align: center;
@@ -181,6 +151,7 @@
   height: 48px;
   margin-bottom: 6px;
 }
+
 .interface-wrapper {
   position: absolute;
   top: 0;

@@ -6,8 +6,8 @@ import './styles.css';
 export const Interface = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [selectedSemi, setSelectedSemi] = useState<SemiOption | null>(null);
-  const OPTION_WIDTH = 120; // ширина одного .main-option (в px)
-  const CONTAINER_WIDTH = 360; // ширина видимой части (в px)
+  const OPTION_WIDTH = 120;
+  const CONTAINER_WIDTH = 360;
 
   const offset = CONTAINER_WIDTH / 2 - OPTION_WIDTH / 2;
   const transformX = -selectedIndex * OPTION_WIDTH + offset;
@@ -15,12 +15,11 @@ export const Interface = () => {
   const selectedMain = pspOptions[selectedIndex];
 
   useEffect(() => {
-    setSelectedSemi(null); // Сброс semiOption при смене mainOption
+    setSelectedSemi(null);
   }, [selectedIndex]);
 
   return (
     <div className="interface-wrapper">
-      {/* Горизонтальное меню */}
       <div className="menu-wrapper">
         <div
           className="menu-track"
@@ -31,16 +30,13 @@ export const Interface = () => {
             <div
               key={opt.name}
               className={`main-option ${idx === selectedIndex ? 'active' : ''}`}
-              onClick={() => setSelectedIndex(idx)} // важно
-            >
+              onClick={() => setSelectedIndex(idx)}>
               <img src={opt.icon} alt={opt.name} />
               <span>{opt.name}</span>
             </div>
           ))}
         </div>
       </div>
-
-      {/* Вертикальный список semiOptions */}
       {selectedMain && (
         <div className="semi-options-list">
           {selectedMain.semiOptions.map((semi) => (
@@ -54,8 +50,6 @@ export const Interface = () => {
           ))}
         </div>
       )}
-
-      {/* Контент */}
       {selectedSemi && <div className="content-panel">{selectedSemi.data}</div>}
     </div>
   );
