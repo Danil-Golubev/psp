@@ -1,0 +1,191 @@
+.background {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #0e0e0e;
+}
+
+.psp-container {
+  position: relative;
+  width: 960px;
+  height: 544px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  background-color: #1a1a1a;
+}
+
+.psp-ui {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: auto;
+  font-family: sans-serif;
+}
+
+.main-menu {
+  display: flex;
+  gap: 10px;
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  pointer-events: auto;
+}
+
+.menu-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 12px;
+  padding: 8px 12px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: background 0.2s;
+}
+
+.menu-btn img {
+  width: 32px;
+  height: 32px;
+  margin-bottom: 4px;
+}
+
+.menu-btn.active {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.semi-menu {
+  position: absolute;
+  top: 100px;
+  left: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  pointer-events: auto;
+}
+
+.semi-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 8px;
+  padding: 6px 10px;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: background 0.2s;
+}
+
+.semi-btn img {
+  width: 24px;
+  height: 24px;
+}
+
+.semi-btn.active {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.content-panel {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+  right: 30px;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  pointer-events: auto;
+}
+
+.main-menu-strip {
+  position: absolute;
+  top: 20%;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  overflow: hidden;
+  pointer-events: auto;
+}
+
+.main-option.active {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.main-option img {
+  height: 48px;
+  margin-bottom: 4px;
+}
+
+.interface-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main-menu-strip {
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.menu-track {
+  display: flex;
+  transition: transform 0.4s ease;
+  width: fit-content;
+}
+
+.main-option.active {
+  transform: scale(1.1);
+  opacity: 1;
+}
+.menu-wrapper {
+  width: 960px;
+  overflow: hidden;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.menu-track {
+  display: flex;
+  transition: transform 0.28s ease;
+  width: max-content;
+}
+
+.main-option {
+  flex: 0 0 calc(100% / 6) - 40px;
+  width: 120px;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  opacity: 0.4;
+  transform: scale(0.95);
+  transition: all 0.05s;
+  pointer-events: auto;
+}
+
+.main-option.active {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.main-option img {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 6px;
+}
+.interface-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+}

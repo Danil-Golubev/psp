@@ -1,19 +1,36 @@
-
-.canvas{
+.canvas {
   width: 100%;
   height: 100vh;
-
 }
 
-.model{
+.model {
   width: 100%;
   height: 100%;
 }
 
-.background{
+.background {
   background-color: black;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.psp-container {
+  position: relative;
+  width: 960px;
+  height: 544px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  background-color: #1a1a1a;
+}
+
+.interface-overlay {
+  position: absolute;
+  top: 0;
+  left: 30%;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10; /* поверх Canvas */
 }
