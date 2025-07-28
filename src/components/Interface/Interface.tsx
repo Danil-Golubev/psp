@@ -6,10 +6,11 @@ import './styles.css';
 export const Interface = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [selectedSemi, setSelectedSemi] = useState<SemiOption | null>(null);
-  const OPTION_WIDTH = 120;
-  const CONTAINER_WIDTH = 360;
+  const OPTION_WIDTH = 544 / 6;
+  const CONTAINER_WIDTH = 544;
 
   const offset = CONTAINER_WIDTH / 2 - OPTION_WIDTH / 2;
+
   const transformX = -selectedIndex * OPTION_WIDTH + offset;
 
   const selectedMain = pspOptions[selectedIndex];
@@ -32,7 +33,7 @@ export const Interface = () => {
               className={`main-option ${idx === selectedIndex ? 'active' : ''}`}
               onClick={() => setSelectedIndex(idx)}>
               <img src={opt.icon} alt={opt.name} />
-              <span>{opt.name}</span>
+              <span className="text">{opt.name}</span>
             </div>
           ))}
         </div>

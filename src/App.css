@@ -27,10 +27,11 @@
 
 .interface-overlay {
   position: absolute;
-  top: 0;
-  left: 30%;
-  width: 100%;
+  top: 30%;
+  left: 20.5%;
+  width: 566px;
+  overflow: hidden;
   height: 100%;
   pointer-events: none;
-  z-index: 10; /* поверх Canvas */
+  z-index: 10;
 }

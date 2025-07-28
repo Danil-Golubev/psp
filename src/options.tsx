@@ -60,5 +60,16 @@ export const pspOptions: MainOption[] = [
         data: <div>Brightness, themes, etc.</div>
       }
     ]
+  },
+  {
+    name: 'Settings',
+    icon: '/icons/settings.png',
+    semiOptions: [
+      {
+        name: 'Display',
+        icon: '/icons/memorystick.png',
+        data: <div>Brightness, themes, etc.</div>
+      }
+    ]
   }
 ];
