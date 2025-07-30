@@ -2,7 +2,7 @@ import { MainOption } from './types';
 
 export const pspOptions: MainOption[] = [
   {
-    name: 'Games',
+    name: 'Game',
     icon: '/icons/game.png',
     semiOptions: [
       {
