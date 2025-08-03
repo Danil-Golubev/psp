@@ -35,6 +35,11 @@
   pointer-events: none;
   z-index: 10;
 }
+@font-face {
+  font-family: NewRodin;
+  src: url(/public/fonts/FOT-NewRodin.otf), format('opentype');
+  font-style: normal;
+}
 
 @font-face {
   font-family: NewRodinL;
@@ -49,5 +54,6 @@
 }
 
 * {
-  font-family: NewRodinM;
+  font-family: NewRodinL;
+  font-weight: 800;
 }

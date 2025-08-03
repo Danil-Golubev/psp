@@ -2,8 +2,8 @@ import { MainOption } from './types';
 
 export const pspOptions: MainOption[] = [
   {
-    name: 'Game',
-    icon: '/icons/game.png',
+    name: 'Settings',
+    icon: '/icons/Settings.png',
     semiOptions: [
       {
         name: 'God of War',
@@ -18,8 +18,8 @@ export const pspOptions: MainOption[] = [
     ]
   },
   {
-    name: 'Music',
-    icon: '/icons/music.png',
+    name: 'Photo',
+    icon: '/icons/photo.png',
     semiOptions: [
       {
         name: 'My Playlist',
@@ -29,8 +29,8 @@ export const pspOptions: MainOption[] = [
     ]
   },
   {
-    name: 'Settings',
-    icon: '/icons/settings.png',
+    name: 'Music',
+    icon: '/icons/music.png',
     semiOptions: [
       {
         name: 'Display',
@@ -40,8 +40,8 @@ export const pspOptions: MainOption[] = [
     ]
   },
   {
-    name: 'Settings',
-    icon: '/icons/settings.png',
+    name: 'Video',
+    icon: '/icons/video.png',
     semiOptions: [
       {
         name: 'Display',
@@ -51,8 +51,8 @@ export const pspOptions: MainOption[] = [
     ]
   },
   {
-    name: 'Settings',
-    icon: '/icons/settings.png',
+    name: 'Game',
+    icon: '/icons/game.png',
     semiOptions: [
       {
         name: 'Display',
@@ -62,8 +62,8 @@ export const pspOptions: MainOption[] = [
     ]
   },
   {
-    name: 'Settings',
-    icon: '/icons/settings.png',
+    name: 'Network',
+    icon: '/icons/network.png',
     semiOptions: [
       {
         name: 'Display',

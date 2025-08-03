@@ -4,7 +4,7 @@ import { SemiOption } from '../../types';
 import './styles.css';
 
 export const Interface = () => {
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [selectedIndex, setSelectedIndex] = useState(2);
   const [selectedSemi, setSelectedSemi] = useState<SemiOption | null>(null);
   const OPTION_WIDTH = 544 / 6;
   const CONTAINER_WIDTH = 544;
@@ -32,13 +32,15 @@ export const Interface = () => {
               key={opt.name}
               className={`main-option ${idx === selectedIndex ? 'active' : ''}`}
               onClick={() => setSelectedIndex(idx)}>
-              <img src={opt.icon} alt={opt.name} />
+              <div className="imageBlock">
+                <img className="image" src={opt.icon} alt={opt.name} />
+              </div>
               <span className="text">{opt.name}</span>
             </div>
           ))}
         </div>
       </div>
-      {selectedMain && (
+      {/* {selectedMain && (
         <div className="semi-options-list">
           {selectedMain.semiOptions.map((semi) => (
             <button
@@ -50,7 +52,7 @@ export const Interface = () => {
             </button>
           ))}
         </div>
-      )}
+      )} */}
       {selectedSemi && <div className="content-panel">{selectedSemi.data}</div>}
     </div>
   );

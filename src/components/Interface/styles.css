@@ -129,26 +129,34 @@
 }
 
 .main-option {
+  display: flex;
   flex: 0 0 calc(100% / 6 -100px);
+  color: white;
   width: 80px;
   padding: 10px;
-  text-align: center;
   cursor: pointer;
   opacity: 0.4;
   transform: scale(0.95);
   transition: all 0.05s;
   pointer-events: auto;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 0px;
+  font-size: 10px;
+  text-shadow: 1px 1px 2px rgb(58, 58, 58);
 }
 
 .main-option.active {
   opacity: 1;
   transform: scale(1.1);
 }
+.imageBlock {
+  width: 50px;
+}
 
-.main-option img {
-  width: 48px;
-  height: 48px;
-  margin-bottom: 6px;
+.imageBlock img {
+  width: 100%;
 }
 
 .interface-wrapper {
@@ -158,8 +166,4 @@
   z-index: 10;
   width: 100%;
   height: 100%;
-}
-
-.text {
-  color: white;
 }
