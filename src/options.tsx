@@ -3,7 +3,7 @@ import { MainOption } from './types';
 export const pspOptions: MainOption[] = [
   {
     name: 'Settings',
-    icon: '/icons/Settings.png',
+    icon: '/icons/settings.png',
     semiOptions: [
       {
         name: 'God of War',

@@ -35,7 +35,7 @@ export const Interface = () => {
               <div className="imageBlock">
                 <img className="image" src={opt.icon} alt={opt.name} />
               </div>
-              <span className="text">{opt.name}</span>
+              {idx === selectedIndex && <span className="text">{opt.name}</span>}
             </div>
           ))}
         </div>
