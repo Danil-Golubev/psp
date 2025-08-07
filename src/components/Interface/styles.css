@@ -124,7 +124,7 @@
 
 .menu-track {
   display: flex;
-  transition: transform 0.28s ease;
+  transition: transform 0.22s ease;
   width: max-content;
 }
 
