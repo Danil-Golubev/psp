@@ -18,7 +18,6 @@ export const App = () => {
             <WallPaper />
           </Suspense>
         </Canvas>
-
         <div className="interface-overlay">
           <Interface />
         </div>

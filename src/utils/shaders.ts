@@ -6,7 +6,6 @@ export const vertexShader = `
   }
 `;
 
-
 export const fragmentShader = `
   uniform float iTime;
   uniform vec2 iResolution;

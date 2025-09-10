@@ -1,172 +1,168 @@
-.background {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background: #0e0e0e;
+/* Базовые размеры для пропорционального масштабирования */
+:root {
+  --base-size: min(1vw, 1vh, 8px); /* Базовый размер для масштабирования */
+  --item-width: calc(var(--base-size) * 20); /* 160px в базовом размере */
+  --item-height: calc(var(--base-size) * 10); /* 80px в базовом размере */
+  --selected-width: calc(var(--base-size) * 23.75); /* 190px в базовом размере */
+  --gap-size: calc(var(--base-size) * 3.75); /* 30px в базовом размере */
+  --icon-size: calc(var(--base-size) * 6.25); /* 50px в базовом размере */
+  --hint-size: calc(var(--base-size) * 1.5); /* 12px в базовом размере */
+  --hint-top: calc(var(--base-size) * 1.25); /* 10px в базовом размере */
+  --items-count: 8; /* Количество элементов в карусели */
 }
 
-.psp-container {
-  position: relative;
-  width: 960px;
-  height: 544px;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-  background-color: #1a1a1a;
-}
-
-.psp-ui {
-  position: absolute;
-  top: 0;
-  left: 0;
+.app {
   width: 100%;
   height: 100%;
-  pointer-events: auto;
-  font-family: sans-serif;
-}
-
-.main-menu {
-  display: flex;
-  gap: 10px;
-  position: absolute;
-  top: 30px;
-  left: 30px;
-  pointer-events: auto;
-}
-
-.menu-btn {
-  background: rgba(255, 255, 255, 0.1);
-  border: none;
-  border-radius: 12px;
-  padding: 8px 12px;
-  color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
-  transition: background 0.2s;
-}
-
-.menu-btn img {
-  width: 32px;
-  height: 32px;
-  margin-bottom: 4px;
-}
-
-.menu-btn.active {
-  background: rgba(255, 255, 255, 0.3);
-}
-
-.semi-menu {
-  position: absolute;
-  top: 100px;
-  left: 60px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  pointer-events: auto;
-}
-
-.semi-btn {
-  background: rgba(255, 255, 255, 0.1);
-  border: none;
-  border-radius: 8px;
-  padding: 6px 10px;
-  color: white;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  transition: background 0.2s;
-}
-
-.semi-btn img {
-  width: 24px;
-  height: 24px;
-}
-
-.semi-btn.active {
-  background: rgba(255, 255, 255, 0.25);
-}
-
-.content-panel {
-  position: absolute;
-  bottom: 30px;
-  left: 30px;
-  right: 30px;
-  background: rgba(0, 0, 0, 0.5);
-  color: white;
-  padding: 20px;
-  border-radius: 10px;
-  pointer-events: auto;
-}
-
-.main-menu-strip {
-  position: absolute;
-  top: 20%;
-  left: 0;
-  width: 100%;
-  height: 100px;
-  overflow: hidden;
-  pointer-events: auto;
-  display: flex;
   justify-content: center;
-  position: relative;
-  margin-bottom: 20px;
 }
 
-.menu-wrapper {
-  width: 960px;
-  overflow: hidden;
-  margin: 0 auto;
-  position: relative;
-  z-index: 2;
-}
-
-.menu-track {
-  display: flex;
-  transition: transform 0.22s ease;
-  width: max-content;
-}
-
-.main-option {
-  display: flex;
-  color: white;
-  width: 80px;
-  padding: 10px;
-  cursor: pointer;
-  opacity: 0.4;
-  transform: scale(0.95);
-  transition: all 0.05s;
-  pointer-events: auto;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: column;
-  gap: 0px;
-  font-size: 10px;
-  text-shadow: 1px 1px 2px rgb(58, 58, 58);
-  height: 50px;
-}
-
-.main-option.active {
-  opacity: 1;
-  transform: scale(1.1);
-}
-
-.imageBlock {
+.controls-hint {
+  position: absolute;
+  top: var(--hint-top);
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255, 255, 255, 0.7);
+  font-size: var(--hint-size);
+  z-index: 20;
+  pointer-events: none;
   text-align: center;
-  width: fit-content;
-}
-.imageBlock img {
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
-.interface-wrapper {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 10;
+.content {
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.22s ease;
+}
+
+.carousel-wrapper {
+  display: flex;
+  align-items: flex-start;
   width: 100%;
   height: 100%;
+  position: relative;
+  justify-content: center;
+}
+
+.item-main {
+  width: var(--item-width);
+  height: var(--item-height);
+  align-items: center;
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  justify-content: center;
+  color: white;
+  flex-shrink: 0;
+  gap: 0; /* Убираем расстояние между иконкой и текстом */
+}
+
+.item {
+  width: var(--item-width);
+  height: var(--item-height);
+  transition: transform 0.1s ease, opacity 0.1s ease;
+  opacity: 0.4;
+}
+
+.selected {
+  transition: 0.1s;
+  opacity: 1;
+  width: var(--selected-width);
+  transition: transform 0.22s ease;
+}
+
+.vert-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.display {
+  display: none;
+}
+
+.outitem {
+  display: flex;
+  width: var(--item-width);
+  height: var(--item-height);
+  opacity: 1;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  flex-shrink: 0;
+}
+
+.out-appear {
+  animation: outAppear 0.3s ease;
+}
+
+@keyframes outAppear {
+  from {
+    opacity: 0;
+    transform: translateY(30%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.item-leave {
+  transform: translateY(calc(var(--item-height) * -0.75)); /* улетает вверх */
+  opacity: 0;
+  transition: transform 80ms ease-out, opacity 80ms ease-out;
+}
+
+.item-return {
+  transform: translateY(0);
+  opacity: 1;
+  transition: transform 80ms ease-in, opacity 80ms ease-in;
+}
+
+.none {
+  display: none;
+}
+
+.outwrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.semi-option {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  height: var(--item-height);
+  flex-shrink: 0;
+}
+
+img {
+  width: 60%;
+  height: auto;
+  max-height: var(--icon-size);
+  filter: drop-shadow(
+    calc(var(--base-size) * 0.8) calc(var(--base-size) * 0.8) calc(var(--base-size) * 0.8)
+      rgba(0, 0, 0, 0.8)
+  );
+}
+
+.item-main p {
+  margin: calc(var(--base-size) * -0.5) 0 0 0; /* Отрицательный отступ сверху для приближения к иконке */
+  line-height: 1;
+  font-size: calc(var(--base-size) * 2.5); /* Еще больше увеличиваем размер текста */
+  text-shadow: calc(var(--base-size) * 0.8) calc(var(--base-size) * 0.8)
+    calc(var(--base-size) * 0.8) rgba(0, 0, 0, 0.8);
+}
+
+.item-leave-up {
+  transform: translateY(calc(var(--item-height) * -2)); /* можно увеличить для выразительности */
+  opacity: 0;
+  transition: transform 90ms cubic-bezier(0.4, 0, 1, 1), opacity 90ms cubic-bezier(0.4, 0, 1, 1);
+}
+
+.item-leave-down {
+  transform: translateY(calc(var(--item-height) * 2));
+  opacity: 0;
+  transition: transform 90ms cubic-bezier(0.4, 0, 1, 1), opacity 90ms cubic-bezier(0.4, 0, 1, 1);
 }

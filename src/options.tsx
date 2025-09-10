@@ -1,6 +1,6 @@
 import { MainOption } from './types';
 
-export const pspOptions: MainOption[] = [
+export const defaultItems: MainOption[] = [
   {
     name: 'Settings',
     icon: '/icons/settings.png',

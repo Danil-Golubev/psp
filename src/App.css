@@ -17,23 +17,25 @@
 }
 .psp-container {
   position: relative;
-  width: 960px;
-  height: 544px;
-  border-radius: 20px;
-  overflow: hidden;
+  width: 100%;
+  height: 100%;
+
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
   background-color: #1a1a1a;
 }
 
 .interface-overlay {
   position: absolute;
-  top: 30%;
-  left: 20.5%;
-  width: 566px;
-  overflow: hidden;
-  height: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100vw;
+  height: min(80vh, 400px);
   pointer-events: none;
   z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 @font-face {
   font-family: NewRodin;
