@@ -10,9 +10,8 @@ export const Interface = () => {
   const [selectedSemiItem, setSelectedSemiItem] = useState<number>(0);
   const [outMassive, setOutMassive] = useState<SemiOption[]>([]);
   const [animating, setAnimating] = useState(false);
-  const [optionSize, setOptionSize] = useState<[number, number]>([80, 160]);
+  const [optionSize, setOptionSize] = useState<[number, number]>([5, 10]);
 
-  // Получаем размеры из CSS переменных после рендера
   useEffect(() => {
     const getCSSVar = (varName: string) => {
       return parseFloat(getComputedStyle(document.documentElement).getPropertyValue(varName)) || 0;
@@ -44,7 +43,6 @@ export const Interface = () => {
   const handleVertical = (dir: 'u' | 'd') => {
     if (animating) return;
 
-    // вверх
     if (dir === 'u' && selectedSemiItem < items[selectedItem].semiOptions.length - 1) {
       const current = items[selectedItem].semiOptions[selectedSemiItem];
       const el = document.getElementById(`semi-${selectedSemiItem}`);
@@ -57,7 +55,7 @@ export const Interface = () => {
           setOutMassive((prev) => [current, ...prev]);
           el.classList.remove('item-leave-up');
           setAnimating(false);
-        }, 90); // такое же время, как в CSS
+        }, 90);
       } else {
         setSelectedSemiItem((prev) => prev + 1);
         setOutMassive((prev) => [current, ...prev]);
@@ -84,7 +82,6 @@ export const Interface = () => {
     }
   };
 
-  // Обработчик клавиатуры
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       switch (event.key) {
@@ -113,14 +110,15 @@ export const Interface = () => {
   }, [selectedItem, selectedSemiItem, animating, offsetX, items, outMassive]);
 
   return (
-    <div className="app">
-      <div
-        className="carousel-wrapper"
-        style={{
-          transform: `translateX(${offsetX}px)`,
-          transition: 'transform 0.2s ease'
-        }}>
-        {items.map((value, _index) => (
+    <div className="wallpaper-container">
+      <div className="app">
+        <div
+          className="carousel-wrapper"
+          style={{
+            transform: `translateX(${offsetX}vw)`,
+            transition: 'transform 0.2s ease'
+          }}>
+          {items.map((value, _index) => (
           <div className="vert-wrapper" key={_index}>
             <div className="outwrapper">
               {outMassive.map((outvalue, _outindex) => (
@@ -131,7 +129,7 @@ export const Interface = () => {
                       _outindex === 0
                         ? 'calc(var(--item-height) * -1)'
                         : 'calc(var(--item-height) * -2)',
-                    // backgroundColor: _outindex === outMassive.length - 1 ? 'blue' : 'green'
+                    // backgroundColor: _outindex === outMassive.length - 1 ? 'blue' : 'green',
                     width: '100%',
                     height: 'var(--item-height)',
                     justifyContent: 'center',
@@ -143,7 +141,6 @@ export const Interface = () => {
                   <img
                     src={outvalue.icon}
                     alt={outvalue.icon}
-                    style={{ width: 'auto', height: 'var(--icon-size)' }}
                   />
                 </div>
               ))}
@@ -173,7 +170,7 @@ export const Interface = () => {
                 </p>
               </div>
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--gap-size)' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--gap-size)', marginTop: 'var(--gap-size)' }}>
               {_index === selectedItem &&
                 value.semiOptions.map((semivalue: SemiOption, _semiindex: number) => (
                   <div
@@ -188,17 +185,15 @@ export const Interface = () => {
                       src={semivalue.icon}
                       style={{
                         opacity: _index === selectedItem ? 1 : 0.7,
-                        borderRightColor: 'yellow',
-                        width: '60%',
-                        height: 'auto',
-                        maxHeight: 'var(--icon-size)'
+                        borderRightColor: 'yellow'
                       }}
                     />
                   </div>
                 ))}
             </div>
           </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );

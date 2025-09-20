@@ -29,13 +29,13 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 100vw;
-  height: min(80vh, 400px);
-  pointer-events: none;
-  z-index: 10;
+  width: calc(var(--wallpaper-width) * 0.98);
+  height: calc(var(--wallpaper-height) * 1.7);
   display: flex;
   align-items: center;
-  justify-content: center;
+  pointer-events: none;
+  z-index: 10;
+  overflow: hidden;
 }
 @font-face {
   font-family: NewRodin;

@@ -12,8 +12,13 @@ export const fragmentShader = `
   varying vec2 vUv;
 
   void main() {
-    vec2 uv = gl_FragCoord.xy / iResolution.xy;
-    uv.y += -0.2;
+    // Используем vUv вместо gl_FragCoord для независимости от размера экрана
+    vec2 uv = vUv;
+    
+    // Нормализуем координаты и добавляем защиту от NaN
+    uv = clamp(uv, 0.0, 1.0);
+    uv.y += 0.4;
+    
     vec4 _TopColor = vec4(0.04, 0.19, 0.54, 1.0);
     vec4 _BottomColor = vec4(0.04, 0.69, 0.87, 1.0);
 
@@ -26,13 +31,16 @@ export const fragmentShader = `
     float _OuterWave2Falloff = 2.0;
     float _InnerWave1Falloff = 1.0;
     float _InnerWave2Falloff = 1.0;
+    
+    // Добавляем защиту от бесконечности и NaN для времени
+    float time = clamp(iTime, 0.0, 10000.0);
 
     vec3 white = vec3(1.0, 1.0, 1.0);
 
-    float topOuterWave = sin((uv.x + (iTime * (_OuterWavesSpeed + (0.0025 * 1.0)))) * _Frequency) * _OuterWavesAmplitude;
-    float bottomOuterWave = sin((uv.x + (iTime * (_OuterWavesSpeed + (0.0025 * 20.0)))) * _Frequency) * _OuterWavesAmplitude;
-    float topInnerWave = sin((uv.x + (iTime * (_InnerWavesSpeed + (0.0025 * 8.0)))) * _Frequency) * _InnerWavesAmplitude;
-    float bottomInnerWave = sin((uv.x + (iTime * (_InnerWavesSpeed + (0.0025 * 40.0)))) * _Frequency) * _InnerWavesAmplitude;
+    float topOuterWave = sin((uv.x + (time * (_OuterWavesSpeed + (0.0025 * 1.0)))) * _Frequency) * _OuterWavesAmplitude;
+    float bottomOuterWave = sin((uv.x + (time * (_OuterWavesSpeed + (0.0025 * 20.0)))) * _Frequency) * _OuterWavesAmplitude;
+    float topInnerWave = sin((uv.x + (time * (_InnerWavesSpeed + (0.0025 * 8.0)))) * _Frequency) * _InnerWavesAmplitude;
+    float bottomInnerWave = sin((uv.x + (time * (_InnerWavesSpeed + (0.0025 * 40.0)))) * _Frequency) * _InnerWavesAmplitude;
 
     float topOuterWaveFalloff = topOuterWave;
     float bottomOuterWaveFalloff = bottomOuterWave;
