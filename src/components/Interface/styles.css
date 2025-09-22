@@ -13,11 +13,10 @@
 }
 
 .wallpaper-container {
-  width: 100%;
+  width: 80%;
   height: 60%;
   position: relative;
   display: flex;
-  align-items: center;
   justify-content: center;
 }
 
@@ -45,7 +44,7 @@
 .content {
   display: flex;
   flex-direction: column;
-  transition: transform 0.22s ease;
+  transition: transform 0.26s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .carousel-wrapper {
@@ -55,9 +54,9 @@
   height: 100%;
   position: relative;
   justify-content: center;
-  margin-left: calc(var(--item-width) * -1);
+  margin-left: calc(var(--item-width) * 1.1);
 }
-
+ 
 .item-main {
   width: var(--item-width);
   height: var(--item-height);
@@ -74,15 +73,15 @@
 .item {
   width: var(--item-width);
   height: var(--item-height);
-  transition: transform 0.1s ease, opacity 0.1s ease;
+  transition: transform 0.26s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1);
   opacity: 0.4;
 }
 
 .selected {
-  transition: 0.1s;
+  transition: 0.24s cubic-bezier(0.16, 1, 0.3, 1);
   opacity: 1;
   width: var(--selected-width);
-  transition: transform 0.22s ease;
+  transition: transform 0.26s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .outitem img,
@@ -120,12 +119,12 @@
   width: var(--item-width);
   height: var(--item-height);
   opacity: 1;
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.24s cubic-bezier(0.16, 1, 0.3, 1);
   flex-shrink: 0;
 }
 
 .out-appear {
-  animation: outAppear 0.3s ease;
+  animation: outAppear 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @keyframes outAppear {
@@ -142,13 +141,13 @@
 .item-leave {
   transform: translateY(calc(var(--item-height) * -0.75));
   opacity: 0;
-  transition: transform 80ms ease-out, opacity 80ms ease-out;
+  transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1), opacity 220ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .item-return {
   transform: translateY(0);
   opacity: 1;
-  transition: transform 80ms ease-in, opacity 80ms ease-in;
+  transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1), opacity 220ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .none {
@@ -190,11 +189,11 @@ img {
 .item-leave-up {
   transform: translateY(calc(var(--item-height) * -2));
   opacity: 0;
-  transition: transform 90ms cubic-bezier(0.4, 0, 1, 1), opacity 90ms cubic-bezier(0.4, 0, 1, 1);
+  transition: transform 240ms cubic-bezier(0.16, 1, 0.3, 1), opacity 240ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .item-leave-down {
   transform: translateY(calc(var(--item-height) * 2));
   opacity: 0;
-  transition: transform 90ms cubic-bezier(0.4, 0, 1, 1), opacity 90ms cubic-bezier(0.4, 0, 1, 1);
+  transition: transform 240ms cubic-bezier(0.16, 1, 0.3, 1), opacity 240ms cubic-bezier(0.16, 1, 0.3, 1);
 }

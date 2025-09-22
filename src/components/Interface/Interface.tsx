@@ -116,7 +116,7 @@ export const Interface = () => {
           className="carousel-wrapper"
           style={{
             transform: `translateX(${offsetX}vw)`,
-            transition: 'transform 0.2s ease'
+            transition: 'transform 0.26s cubic-bezier(0.16, 1, 0.3, 1)'
           }}>
           {items.map((value, _index) => (
           <div className="vert-wrapper" key={_index}>
@@ -151,14 +151,20 @@ export const Interface = () => {
             >
               <div
                 style={{
-                  width: _index === selectedItem ? '102%' : '100%'
+                  width: _index === selectedItem ? '110%' : '100%'
                   // backgroundColor: 'yellow'
                 }}>
                 <img
                   alt={value.icon}
                   src={value.icon}
                   style={{
-                    opacity: _index === selectedItem ? 1 : 0.7
+                    opacity: _index === selectedItem ? 1 : 0.7,
+                    filter:
+                      _index === selectedItem
+                        ? 'none drop-shadow(0 0 6px rgba(255,255,255,.35))'
+                        : 'blur(0.8px) grayscale(1) contrast(.85) brightness(.9)',
+                    transform: _index === selectedItem ? 'scale(1.2)' : 'scale(1)',
+                    transition: 'filter 0.22s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1), transform 0.26s cubic-bezier(0.16, 1, 0.3, 1)'
                   }}
                 />
                 <p
