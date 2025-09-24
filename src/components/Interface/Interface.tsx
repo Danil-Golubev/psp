@@ -8,7 +8,6 @@ export const Interface = () => {
   const [items] = useState([...defaultItems]);
   const [selectedItem, setSelectedItem] = useState<number>(1);
   const [selectedSemiItem, setSelectedSemiItem] = useState<number>(0);
-  // Визуально выделенный элемент (его увеличение) применяется с задержкой
   const [visuallySelectedItem, setVisuallySelectedItem] = useState<number>(1);
   const [outMassive, setOutMassive] = useState<SemiOption[]>([]);
   const [animating, setAnimating] = useState(false);
