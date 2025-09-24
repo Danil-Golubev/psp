@@ -8,6 +8,8 @@ export const Interface = () => {
   const [items] = useState([...defaultItems]);
   const [selectedItem, setSelectedItem] = useState<number>(1);
   const [selectedSemiItem, setSelectedSemiItem] = useState<number>(0);
+  // Визуально выделенный элемент (его увеличение) применяется с задержкой
+  const [visuallySelectedItem, setVisuallySelectedItem] = useState<number>(1);
   const [outMassive, setOutMassive] = useState<SemiOption[]>([]);
   const [animating, setAnimating] = useState(false);
   const [optionSize, setOptionSize] = useState<[number, number]>([5, 10]);
@@ -24,6 +26,17 @@ export const Interface = () => {
       setOptionSize([height, width]);
     }
   }, []);
+
+
+  useEffect(() => {
+    const timerId = window.setTimeout(() => {
+      setVisuallySelectedItem(selectedItem);
+    }, 20); 
+
+    return () => {
+      clearTimeout(timerId);
+    };
+  }, [selectedItem]);
 
   const handleHorizontal = (dir: 'l' | 'r') => {
     if (dir === 'l' && selectedItem > 0) {
@@ -146,12 +159,12 @@ export const Interface = () => {
               ))}
             </div>
             <div
-              className={_index === selectedItem ? 'item-main selected' : 'item-main'}
+              className={_index === visuallySelectedItem ? 'item-main selected' : 'item-main'}
               // style={{ backgroundColor: 'yellow' }}
             >
               <div
                 style={{
-                  width: _index === selectedItem ? '110%' : '100%'
+                  width: _index === visuallySelectedItem ? '110%' : '100%'
                   // backgroundColor: 'yellow'
                 }}>
                 <img
@@ -160,7 +173,7 @@ export const Interface = () => {
                   className={_index === selectedItem ? undefined : 'dimmed'}
                   style={{
                     opacity: _index === selectedItem ? 1 : 0.7,
-                    transform: _index === selectedItem ? 'scale(1.2)' : 'scale(1)',
+                    transform: _index === visuallySelectedItem ? 'scale(1.2)' : 'scale(1)',
                     transition: 'filter 0.31s cubic-bezier(0.2, 0.9, 0.22, 1), opacity 0.31s cubic-bezier(0.2, 0.9, 0.22, 1), transform 0.37s cubic-bezier(0.2, 0.9, 0.22, 1)'
                   }}
                 />
