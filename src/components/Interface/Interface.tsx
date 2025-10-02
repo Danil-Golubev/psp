@@ -12,6 +12,9 @@ export const Interface = () => {
   const [outMassive, setOutMassive] = useState<SemiOption[]>([]);
   const [animating, setAnimating] = useState(false);
   const [optionSize, setOptionSize] = useState<[number, number]>([5, 10]);
+  const [semiDisappearing, setSemiDisappearing] = useState(false);
+  const [prevSelectedItem, setPrevSelectedItem] = useState<number>(1);
+  
 
   useEffect(() => {
     const getCSSVar = (varName: string) => {
@@ -29,25 +32,37 @@ export const Interface = () => {
   useEffect(() => {
     const timerId = window.setTimeout(() => {
       setVisuallySelectedItem(selectedItem);
-    }, 20);
+    }, 0);
 
     return () => {
       clearTimeout(timerId);
     };
   }, [selectedItem]);
 
+  
+
   const handleHorizontal = (dir: 'l' | 'r') => {
     if (dir === 'l' && selectedItem > 0) {
+      setSemiDisappearing(true);
+      setPrevSelectedItem(selectedItem);
       setSelectedItem(selectedItem - 1);
       setSelectedSemiItem(0);
       setOutMassive([]);
       setOffsetX(offsetX + optionSize[1]);
+      setTimeout(() => {
+        setSemiDisappearing(false);
+      }, 113);
     }
     if (dir === 'r' && selectedItem < items.length - 1) {
+      setSemiDisappearing(true);
+      setPrevSelectedItem(selectedItem);
       setSelectedItem(selectedItem + 1);
       setSelectedSemiItem(0);
       setOutMassive([]);
       setOffsetX(offsetX - optionSize[1]);
+      setTimeout(() => {
+        setSemiDisappearing(false);
+      }, 113);
     }
   };
 
@@ -175,7 +190,7 @@ export const Interface = () => {
                   />
                   <p
                     style={{
-                      opacity: _index === selectedItem ? '1' : '0'
+                      opacity: _index === selectedItem ? '1' : '0',
                       // backgroundColor: 'yellow'
                     }}>
                     {value.name}
@@ -189,23 +204,96 @@ export const Interface = () => {
                   gap: 'var(--gap-size)',
                   marginTop: 'var(--gap-size)'
                 }}>
+                {_index === prevSelectedItem && semiDisappearing &&
+                  value.semiOptions.map((semivalue: SemiOption, _semiindex: number) => (
+                    <div key={`prev-${_semiindex}`} style={{position:'relative'}} className="semi-disappear">
+                      <div
+                        id={`semi-${_semiindex}`}
+                        className="semi-option"
+                        style={{
+                          display: _semiindex < outMassive.length ? 'none' : 'flex'
+                          // backgroundColor: 'green'
+                        }}>
+                        <img
+                          alt={semivalue.icon}
+                          src={semivalue.icon}
+                          style={{
+                            opacity: 1,
+                            borderRightColor: 'yellow'
+                          }}
+                        />
+                      </div>
+                      {_semiindex === 0 && 
+                      (<div style={{position:'absolute', left:'100%', top:'50%', transform:'translateY(-50%)', marginLeft:'-30px', display:'flex', flexDirection:'column', alignItems:'flex-start', justifyContent:'center'}} >
+                        <p style={{
+                          color:'#fff', 
+                          whiteSpace:'nowrap', 
+                          margin:0, 
+                          padding:0,
+                          fontSize: 'calc(var(--base-size) * 2.5)',
+                          textShadow: 'calc(var(--base-size) * 0.8) calc(var(--base-size) * 0.8) calc(var(--base-size) * 0.8) rgba(0, 0, 0, 0.8), calc(var(--base-size) * -0.3) calc(var(--base-size) * -0.3) calc(var(--base-size) * 0.5) rgba(255, 255, 255, 0.4)'
+                        }}>{semivalue.name}</p>
+                        {semivalue.name === 'Memory Stick' && (
+                          <>
+                            <div style={{backgroundColor:'white', width:'2000px', height:'2px', marginTop:'0px'}}> </div>
+                            <p style={{
+                              color:'#fff', 
+                              whiteSpace:'nowrap', 
+                              margin:0, 
+                              padding:0,
+                              fontSize: 'calc(var(--base-size) * 2.5)',
+                              textShadow: 'calc(var(--base-size) * 0.8) calc(var(--base-size) * 0.8) calc(var(--base-size) * 0.8) rgba(0, 0, 0, 0.8), calc(var(--base-size) * -0.3) calc(var(--base-size) * -0.3) calc(var(--base-size) * 0.5) rgba(255, 255, 255, 0.4)',
+                              marginTop:'0px'
+                            }}>Free Space 1790 MB</p>
+                          </>
+                        )}
+                      </div>)}
+                    </div>
+                  ))}
                 {_index === selectedItem &&
                   value.semiOptions.map((semivalue: SemiOption, _semiindex: number) => (
-                    <div
-                      id={`semi-${_semiindex}`}
-                      className="semi-option"
-                      style={{
-                        display: _semiindex < outMassive.length ? 'none' : 'flex'
-                        // backgroundColor: 'green'
-                      }}>
-                      <img
-                        alt={semivalue.icon}
-                        src={semivalue.icon}
+                    <div key={_semiindex} style={{position:'relative'}}>
+                      <div
+                        id={`semi-${_semiindex}`}
+                        className="semi-option"
                         style={{
-                          opacity: _index === selectedItem ? 1 : 0.7,
-                          borderRightColor: 'yellow'
-                        }}
-                      />
+                          display: _semiindex < outMassive.length ? 'none' : 'flex'
+                          // backgroundColor: 'green'
+                        }}>
+                        <img
+                          alt={semivalue.icon}
+                          src={semivalue.icon}
+                          style={{
+                            opacity: _index === selectedItem ? 1 : 0.7,
+                            borderRightColor: 'yellow'
+                          }}
+                        />
+                      </div>
+                      {_semiindex === selectedSemiItem && 
+                      (<div style={{position:'absolute', left:'100%', top:'50%', transform:'translateY(-50%)', marginLeft:'-30px', display:'flex', flexDirection:'column', alignItems:'flex-start', justifyContent:'center'}} >
+                        <p style={{
+                          color:'#fff', 
+                          whiteSpace:'nowrap', 
+                          margin:0, 
+                          padding:0,
+                          fontSize: 'calc(var(--base-size) * 2.5)',
+                          textShadow: 'calc(var(--base-size) * 0.8) calc(var(--base-size) * 0.8) calc(var(--base-size) * 0.8) rgba(0, 0, 0, 0.8), calc(var(--base-size) * -0.3) calc(var(--base-size) * -0.3) calc(var(--base-size) * 0.5) rgba(255, 255, 255, 0.4)'
+                        }}>{semivalue.name}</p>
+                        {semivalue.name === 'Memory Stick' && (
+                          <>
+                            <div style={{backgroundColor:'white', width:'2000px', height:'2px', marginTop:'0px'}}> </div>
+                            <p style={{
+                              color:'#fff', 
+                              whiteSpace:'nowrap', 
+                              margin:0, 
+                              padding:0,
+                              fontSize: 'calc(var(--base-size) * 2.5)',
+                              textShadow: 'calc(var(--base-size) * 0.8) calc(var(--base-size) * 0.8) calc(var(--base-size) * 0.8) rgba(0, 0, 0, 0.8), calc(var(--base-size) * -0.3) calc(var(--base-size) * -0.3) calc(var(--base-size) * 0.5) rgba(255, 255, 255, 0.4)',
+                              marginTop:'0px'
+                            }}>Free Space 1790 MB</p>
+                          </>
+                        )}
+                      </div>)}
                     </div>
                   ))}
               </div>

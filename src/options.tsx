@@ -3,71 +3,71 @@ import { MainOption } from './types';
 export const defaultItems: MainOption[] = [
   {
     name: 'Settings',
-    icon: '/icons/settings.png',
+    icon: '/newicons/Settings.svg',
     semiOptions: [
       {
         name: 'God of War',
-        icon: '/icons/memorystick.png',
+        icon: '/newicons/SdCard.svg',
         data: <div>God of War info or launch screen</div>
       },
       {
         name: 'GTA: Liberty City Stories',
-        icon: '/icons/memorystick.png',
+        icon: '/newicons/SdCard.svg',
         data: <div>GTA LCS info or launch screen</div>
       }
     ]
   },
   {
     name: 'Photo',
-    icon: '/icons/photo.png',
+    icon: '/newicons/Picture.svg',
     semiOptions: [
       {
-        name: 'My Playlist',
-        icon: '/icons/memorystick.png',
+        name: 'Memory Stick',
+        icon: '/newicons/SdCard.svg',
         data: <div>MP3 player or playlist</div>
       }
     ]
   },
   {
     name: 'Music',
-    icon: '/icons/music.png',
+    icon: '/newicons/Music.svg',
     semiOptions: [
       {
-        name: 'Display',
-        icon: '/icons/memorystick.png',
+        name: 'Memory Stick',
+        icon: '/newicons/SdCard.svg',
         data: <div>Brightness, themes, etc.</div>
       }
     ]
   },
   {
     name: 'Video',
-    icon: '/icons/video.png',
+    icon: '/newicons/Video.svg',
     semiOptions: [
       {
         name: 'Display',
-        icon: '/icons/memorystick.png',
+        icon: '/newicons/SdCard.svg',
         data: <div>Brightness, themes, etc.</div>
       }
     ]
   },
   {
     name: 'Game',
-    icon: '/icons/game.png',
+    icon: '/newicons/GamePad.svg',
     semiOptions: [
       {
         name: 'Display',
-        icon: '/icons/memorystick.png',
+        icon: '/newicons/SdCard.svg',
         data: <div>Brightness, themes, etc.</div>
       }
     ]
   },
   {
     name: 'Network',
-    icon: '/icons/network.png',
+    icon: '/newicons/Network.svg',
     semiOptions: [
       {
         name: 'Display',
-        icon: '/icons/memorystick.png',
+        icon: '/newicons/SdCard.svg',
         data: <div>Brightness, themes, etc.</div>
       }
     ]

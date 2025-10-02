@@ -64,10 +64,25 @@
   display: flex;
   text-align: center;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   color: white;
   flex-shrink: 0;
   gap: 0;
+  position: relative;
+  overflow: visible;
+}
+
+.item-main > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: var(--item-height);
+}
+
+.item-main > div > img {
+  align-self: center;
+  margin-top: auto;
 }
 
 .item {
@@ -88,7 +103,7 @@
 .outitem img,
 .semi-option img,
 .item-main img {
-  filter: drop-shadow(
+  filter: brightness(0) invert(1) drop-shadow(
       calc(var(--base-size) * 0.8) calc(var(--base-size) * 0.8) calc(var(--base-size) * 0.8)
         rgba(0, 0, 0, 0.8)
     )
@@ -99,7 +114,7 @@
 }
 
 .dimmed {
-  filter: blur(0.8px) grayscale(1) contrast(0.85) brightness(0.9)
+  filter: brightness(0) invert(1) blur(0.8px) grayscale(1) contrast(0.85)
     drop-shadow(
       calc(var(--base-size) * 0.8) calc(var(--base-size) * 0.8) calc(var(--base-size) * 0.8)
         rgba(0, 0, 0, 0.8)
@@ -111,7 +126,7 @@
 }
 
 .selected .item-main img {
-  filter: drop-shadow(
+  filter: brightness(0) invert(1) drop-shadow(
       calc(var(--base-size) * 0.8) calc(var(--base-size) * 0.8) calc(var(--base-size) * 0.8)
         rgba(0, 0, 0, 0.8)
     )
@@ -123,8 +138,8 @@
 
 .outitem img,
 .semi-option img {
-  width: calc(var(--item-width) * 0.4) !important;
-  height: calc(var(--item-width) * 0.4) !important;
+  width: calc(var(--item-width) * 0.47) !important;
+  height: auto !important;
   object-fit: contain !important;
 }
 
@@ -162,6 +177,19 @@
   }
 }
 
+.semi-disappear {
+  animation: semiDisappear 0.1125s cubic-bezier(0.2, 0.9, 0.22, 1) forwards;
+}
+
+@keyframes semiDisappear {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
 .item-leave {
   transform: translateY(calc(var(--item-height) * -0.75));
   opacity: 0;
@@ -195,20 +223,67 @@
 }
 
 img {
-  width: calc(var(--item-width) * 0.6);
-  height: calc(var(--item-width) * 0.6);
+  width: calc(var(--item-width) * 0.7);
+  height: auto;
   object-fit: contain;
-  filter: drop-shadow(
+  filter: brightness(0) invert(1) drop-shadow(
       calc(var(--base-size) * 0.8) calc(var(--base-size) * 0.8) calc(var(--base-size) * 0.8)
         rgba(0, 0, 0, 0.8)
     )
     drop-shadow(0 0 calc(var(--base-size) * 1) rgba(255, 255, 255, 0.1));
 }
 
+/* Settings: 1160 × 664 */
+img[src*="Settings"] {
+  width: calc(var(--item-width) * 0.845) !important;
+  height: calc(var(--item-width) * 0.845 * 664 / 1160) !important;
+}
+
+/* Photo: 1160 × 660 */
+img[src*="Picture"] {
+  width: calc(var(--item-width) * 0.735) !important;
+  height: calc(var(--item-width) * 0.735 * 660 / 1160) !important;
+}
+
+/* Music: 1160 × 796 (самая высокая) - уменьшена */
+img[src*="Music"] {
+  width: calc(var(--item-width) * 0.63) !important;
+  height: calc(var(--item-width) * 0.63 * 796 / 1160) !important;
+}
+
+/* Video: 1160 × 684 - увеличена */
+img[src*="Video"] {
+  width: calc(var(--item-width) * 0.8925) !important;
+  height: calc(var(--item-width) * 0.8925 * 684 / 1160) !important;
+}
+
+/* Game: 1160 × 620 (самая широкая) - увеличена */
+img[src*="GamePad"] {
+  width: calc(var(--item-width) * 0.8925) !important;
+  height: calc(var(--item-width) * 0.8925 * 620 / 1160) !important;
+}
+
+/* Network: 1160 × 748 - уменьшена */
+img[src*="Network"] {
+  width: calc(var(--item-width) * 0.63) !important;
+  height: calc(var(--item-width) * 0.63 * 748 / 1160) !important;
+}
+
+/* SdCard: 1:1 */
+img[src*="SdCard"] {
+  width: calc(var(--item-width) * 0.347) !important;
+  height: calc(var(--item-width) * 0.347) !important;
+}
+
 .item-main p {
-  margin: calc(var(--base-size) * -2.5) 0 0 0;
+  position: absolute;
+  bottom: calc(var(--base-size) * -3.8);
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
   line-height: 1;
   font-size: calc(var(--base-size) * 2.5);
+  white-space: nowrap;
   text-shadow: calc(var(--base-size) * 0.8) calc(var(--base-size) * 0.8)
       calc(var(--base-size) * 0.8) rgba(0, 0, 0, 0.8),
     calc(var(--base-size) * -0.3) calc(var(--base-size) * -0.3) calc(var(--base-size) * 0.5)
