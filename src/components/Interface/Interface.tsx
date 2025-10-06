@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { defaultItems } from '../../options';
 import { SemiOption } from '../../types';
+import { useSound } from '../../hooks/useSound';
 import './styles.css';
 
 export const Interface = () => {
@@ -15,6 +16,7 @@ export const Interface = () => {
   const [semiDisappearing, setSemiDisappearing] = useState(false);
   const [prevSelectedItem, setPrevSelectedItem] = useState<number>(1);
   
+  const { play: playClickSound } = useSound('/sounds/сlick2.wav', 0.5);
 
   useEffect(() => {
     const getCSSVar = (varName: string) => {
@@ -43,6 +45,7 @@ export const Interface = () => {
 
   const handleHorizontal = (dir: 'l' | 'r') => {
     if (dir === 'l' && selectedItem > 0) {
+      playClickSound();
       setSemiDisappearing(true);
       setPrevSelectedItem(selectedItem);
       setSelectedItem(selectedItem - 1);
@@ -54,6 +57,7 @@ export const Interface = () => {
       }, 113);
     }
     if (dir === 'r' && selectedItem < items.length - 1) {
+      playClickSound();
       setSemiDisappearing(true);
       setPrevSelectedItem(selectedItem);
       setSelectedItem(selectedItem + 1);
@@ -70,6 +74,7 @@ export const Interface = () => {
     if (animating) return;
 
     if (dir === 'u' && selectedSemiItem < items[selectedItem].semiOptions.length - 1) {
+      playClickSound();
       const current = items[selectedItem].semiOptions[selectedSemiItem];
       const el = document.getElementById(`semi-${selectedSemiItem}`);
       if (el) {
@@ -90,6 +95,7 @@ export const Interface = () => {
 
     // вниз
     if (dir === 'd' && selectedSemiItem > 0) {
+      playClickSound();
       const lastOut = document.querySelector('.outitem') as HTMLElement;
       if (lastOut) {
         setAnimating(true);
