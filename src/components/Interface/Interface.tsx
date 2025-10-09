@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { defaultItems } from '../../options';
 import { SemiOption } from '../../types';
 import { useSound } from '../../hooks/useSound';
@@ -15,17 +15,25 @@ export const Interface = () => {
   const [optionSize, setOptionSize] = useState<[number, number]>([5, 10]);
   const [semiDisappearing, setSemiDisappearing] = useState(false);
   const [prevSelectedItem, setPrevSelectedItem] = useState<number>(1);
+  const [isFastScrolling, setIsFastScrolling] = useState(false);
   
   const { play: playClickSound } = useSound('/sounds/сlick2.wav', 0.5);
+  
+  const holdTimeoutRef = useRef<number | null>(null);
+  const holdIntervalRef = useRef<number | null>(null);
+  const pressedKeysRef = useRef<Set<string>>(new Set());
+  const isHoldingRef = useRef<boolean>(false);
+  const handlersRef = useRef<{
+    horizontal: (dir: 'l' | 'r') => void;
+    vertical: (dir: 'u' | 'd') => void;
+  } | null>(null);
 
   useEffect(() => {
     const getCSSVar = (varName: string) => {
       return parseFloat(getComputedStyle(document.documentElement).getPropertyValue(varName)) || 0;
     };
-
     const height = getCSSVar('--item-height');
     const width = getCSSVar('--item-width');
-
     if (height > 0 && width > 0) {
       setOptionSize([height, width]);
     }
@@ -40,106 +48,195 @@ export const Interface = () => {
       clearTimeout(timerId);
     };
   }, [selectedItem]);
-
   
-
   const handleHorizontal = (dir: 'l' | 'r') => {
+    if (!isHoldingRef.current && (animating || semiDisappearing)) return;
     if (dir === 'l' && selectedItem > 0) {
       playClickSound();
       setSemiDisappearing(true);
       setPrevSelectedItem(selectedItem);
-      setSelectedItem(selectedItem - 1);
-      setSelectedSemiItem(0);
-      setOutMassive([]);
-      setOffsetX(offsetX + optionSize[1]);
       setTimeout(() => {
         setSemiDisappearing(false);
-      }, 113);
+      }, isHoldingRef.current ? 0 : 113);
+      setSelectedItem(prev => prev - 1);
+      setSelectedSemiItem(0);
+      setOutMassive([]);
+      setOffsetX(prev => prev + optionSize[1]);
+      if (selectedItem - 1 === 0) {
+        setIsFastScrolling(false);
+      }
+    } else if (dir === 'l' && selectedItem === 0) {
+      setIsFastScrolling(false);
     }
     if (dir === 'r' && selectedItem < items.length - 1) {
       playClickSound();
       setSemiDisappearing(true);
       setPrevSelectedItem(selectedItem);
-      setSelectedItem(selectedItem + 1);
-      setSelectedSemiItem(0);
-      setOutMassive([]);
-      setOffsetX(offsetX - optionSize[1]);
       setTimeout(() => {
         setSemiDisappearing(false);
-      }, 113);
+      }, isHoldingRef.current ? 0 : 113);
+      setSelectedItem(prev => prev + 1);
+      setSelectedSemiItem(0);
+      setOutMassive([]);
+      setOffsetX(prev => prev - optionSize[1]);
+      if (selectedItem + 1 === items.length - 1) {
+        setIsFastScrolling(false);
+      }
+    } else if (dir === 'r' && selectedItem === items.length - 1) {
+      setIsFastScrolling(false);
     }
   };
 
   const handleVertical = (dir: 'u' | 'd') => {
-    if (animating) return;
-
+    if (!isHoldingRef.current && animating) return;
     if (dir === 'u' && selectedSemiItem < items[selectedItem].semiOptions.length - 1) {
       playClickSound();
       const current = items[selectedItem].semiOptions[selectedSemiItem];
-      const el = document.getElementById(`semi-${selectedSemiItem}`);
-      if (el) {
-        setAnimating(true);
-        el.classList.add('item-leave-up');
-
-        setTimeout(() => {
+      if (!isHoldingRef.current) {
+        const el = document.getElementById(`semi-${selectedSemiItem}`);
+        if (el) {
+          setAnimating(true);
+          el.classList.add('item-leave-up');
+          setTimeout(() => {
+            setSelectedSemiItem((prev) => prev + 1);
+            setOutMassive((prev) => [current, ...prev]);
+            el.classList.remove('item-leave-up');
+            setAnimating(false);
+          }, 90);
+        } else {
           setSelectedSemiItem((prev) => prev + 1);
           setOutMassive((prev) => [current, ...prev]);
-          el.classList.remove('item-leave-up');
-          setAnimating(false);
-        }, 90);
+        }
       } else {
         setSelectedSemiItem((prev) => prev + 1);
         setOutMassive((prev) => [current, ...prev]);
       }
+      if (selectedSemiItem + 1 === items[selectedItem].semiOptions.length - 1) {
+        setIsFastScrolling(false);
+      }
+    } else if (dir === 'u' && selectedSemiItem === items[selectedItem].semiOptions.length - 1) {
+      setIsFastScrolling(false);
     }
 
-    // вниз
     if (dir === 'd' && selectedSemiItem > 0) {
       playClickSound();
-      const lastOut = document.querySelector('.outitem') as HTMLElement;
-      if (lastOut) {
-        setAnimating(true);
-        lastOut.classList.add('item-leave-down');
-
-        setTimeout(() => {
+      if (!isHoldingRef.current) {
+        const lastOut = document.querySelector('.outitem') as HTMLElement;
+        if (lastOut) {
+          setAnimating(true);
+          lastOut.classList.add('item-leave-down');
+          setTimeout(() => {
+            setSelectedSemiItem((prev) => prev - 1);
+            setOutMassive((prev) => prev.slice(0, -1));
+            lastOut.classList.remove('item-leave-down');
+            setAnimating(false);
+          }, 90);
+        } else {
           setSelectedSemiItem((prev) => prev - 1);
           setOutMassive((prev) => prev.slice(0, -1));
-          lastOut.classList.remove('item-leave-down');
-          setAnimating(false);
-        }, 90);
+        }
       } else {
         setSelectedSemiItem((prev) => prev - 1);
         setOutMassive((prev) => prev.slice(0, -1));
       }
+      if (selectedSemiItem - 1 === 0) {
+        setIsFastScrolling(false);
+      }
+    } else if (dir === 'd' && selectedSemiItem === 0) {
+      setIsFastScrolling(false);
     }
+  };
+  
+  handlersRef.current = {
+    horizontal: handleHorizontal,
+    vertical: handleVertical
   };
 
   useEffect(() => {
+    const clearHoldTimers = () => {
+      if (holdTimeoutRef.current) {
+        clearTimeout(holdTimeoutRef.current);
+        holdTimeoutRef.current = null;
+      }
+      if (holdIntervalRef.current) {
+        clearInterval(holdIntervalRef.current);
+        holdIntervalRef.current = null;
+      }
+      isHoldingRef.current = false;
+      setIsFastScrolling(false);
+    };
+
     const handleKeyDown = (event: KeyboardEvent) => {
-      switch (event.key) {
+      const key = event.key;
+      
+      if (pressedKeysRef.current.has(key)) {
+        event.preventDefault();
+        return;
+      }
+      if (pressedKeysRef.current.size > 0) {
+        event.preventDefault();
+        return;
+      }
+      pressedKeysRef.current.add(key);
+      const executeAction = () => {
+        if (!handlersRef.current) return;
+        switch (key) {
+          case 'ArrowLeft':
+            handlersRef.current.horizontal('l');
+            break;
+          case 'ArrowRight':
+            handlersRef.current.horizontal('r');
+            break;
+          case 'ArrowUp':
+            handlersRef.current.vertical('u');
+            break;
+          case 'ArrowDown':
+            handlersRef.current.vertical('d');
+            break;
+        }
+      };
+      switch (key) {
         case 'ArrowLeft':
-          event.preventDefault();
-          handleHorizontal('l');
-          break;
         case 'ArrowRight':
-          event.preventDefault();
-          handleHorizontal('r');
-          break;
         case 'ArrowUp':
-          event.preventDefault();
-          handleVertical('u');
-          break;
         case 'ArrowDown':
           event.preventDefault();
-          handleVertical('d');
+          clearHoldTimers();
+          isHoldingRef.current = false;
+          executeAction();
+          holdTimeoutRef.current = window.setTimeout(() => {
+            isHoldingRef.current = true;            
+            executeAction();
+            setIsFastScrolling(true);
+            holdIntervalRef.current = window.setInterval(() => {
+              executeAction();
+            }, 70);
+          }, 300);
           break;
       }
     };
+
+    const handleKeyUp = (event: KeyboardEvent) => {
+      const key = event.key;
+      pressedKeysRef.current.delete(key);
+      switch (key) {
+        case 'ArrowLeft':
+        case 'ArrowRight':
+        case 'ArrowUp':
+        case 'ArrowDown':
+          clearHoldTimers();
+          break;
+      }
+    };
+
     window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('keyup', handleKeyUp);
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('keyup', handleKeyUp);
+      clearHoldTimers();
     };
-  }, [selectedItem, selectedSemiItem, animating, offsetX, items, outMassive]);
+  }, []);
 
   return (
     <div className="wallpaper-container">
@@ -180,7 +277,7 @@ export const Interface = () => {
               >
                 <div
                   style={{
-                    width: _index === visuallySelectedItem ? '110%' : '100%'
+                    width: isFastScrolling ? '100%' : (_index === visuallySelectedItem ? '110%' : '100%')
                     // backgroundColor: 'yellow'
                   }}>
                   <img
@@ -189,9 +286,9 @@ export const Interface = () => {
                     className={_index === selectedItem ? undefined : 'dimmed'}
                     style={{
                       opacity: _index === selectedItem ? 1 : 0.7,
-                      transform: _index === visuallySelectedItem ? 'scale(1.2)' : 'scale(1)',
-                      transition:
-                        'filter 0.2s cubic-bezier(0.2, 0.9, 0.22, 1), opacity 0.2s cubic-bezier(0.2, 0.9, 0.22, 1), transform 0.2s cubic-bezier(0.2, 0.9, 0.22, 1)'
+                      transform: isFastScrolling ? 'scale(1)' : (_index === visuallySelectedItem ? 'scale(1.2)' : 'scale(1)'),
+                      transition: 
+                         'filter 0.2s cubic-bezier(0.2, 0.9, 0.22, 1), opacity 0.2s cubic-bezier(0.2, 0.9, 0.22, 1), transform 0.2s cubic-bezier(0.2, 0.9, 0.22, 1)'
                     }}
                   />
                   <p
