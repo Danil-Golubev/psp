@@ -62,12 +62,13 @@ export const Interface = () => {
       setSelectedSemiItem(0);
       setOutMassive([]);
       setOffsetX(prev => prev + optionSize[1]);
-      if (selectedItem - 1 === 0) {
+      if (isHoldingRef.current && selectedItem - 1 === 0) {
         setIsFastScrolling(false);
       }
-    } else if (dir === 'l' && selectedItem === 0) {
+    } else if (dir === 'l' && selectedItem === 0 && isHoldingRef.current) {
       setIsFastScrolling(false);
     }
+    
     if (dir === 'r' && selectedItem < items.length - 1) {
       playClickSound();
       setSemiDisappearing(true);
@@ -79,10 +80,10 @@ export const Interface = () => {
       setSelectedSemiItem(0);
       setOutMassive([]);
       setOffsetX(prev => prev - optionSize[1]);
-      if (selectedItem + 1 === items.length - 1) {
+      if (isHoldingRef.current && selectedItem + 1 === items.length - 1) {
         setIsFastScrolling(false);
       }
-    } else if (dir === 'r' && selectedItem === items.length - 1) {
+    } else if (dir === 'r' && selectedItem === items.length - 1 && isHoldingRef.current) {
       setIsFastScrolling(false);
     }
   };
@@ -111,13 +112,13 @@ export const Interface = () => {
         setSelectedSemiItem((prev) => prev + 1);
         setOutMassive((prev) => [current, ...prev]);
       }
-      if (selectedSemiItem + 1 === items[selectedItem].semiOptions.length - 1) {
+      if (isHoldingRef.current && selectedSemiItem + 1 === items[selectedItem].semiOptions.length - 1) {
         setIsFastScrolling(false);
       }
-    } else if (dir === 'u' && selectedSemiItem === items[selectedItem].semiOptions.length - 1) {
+    } else if (dir === 'u' && selectedSemiItem === items[selectedItem].semiOptions.length - 1 && isHoldingRef.current) {
       setIsFastScrolling(false);
     }
-
+  
     if (dir === 'd' && selectedSemiItem > 0) {
       playClickSound();
       if (!isHoldingRef.current) {
@@ -139,10 +140,10 @@ export const Interface = () => {
         setSelectedSemiItem((prev) => prev - 1);
         setOutMassive((prev) => prev.slice(0, -1));
       }
-      if (selectedSemiItem - 1 === 0) {
+      if (isHoldingRef.current && selectedSemiItem - 1 === 0) {
         setIsFastScrolling(false);
       }
-    } else if (dir === 'd' && selectedSemiItem === 0) {
+    } else if (dir === 'd' && selectedSemiItem === 0 && isHoldingRef.current) {
       setIsFastScrolling(false);
     }
   };
