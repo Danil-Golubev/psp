@@ -1,2 +1,2 @@
 # PSP device concept. In progress
-[/git-src/images/alpha01.png]
+![alpha01 version](git-src/images/alpha01.png)
