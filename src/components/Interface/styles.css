@@ -83,6 +83,7 @@
 .item-main > div > img {
   align-self: center;
   margin-top: auto;
+  margin-bottom: 0;
 }
 
 .item {
@@ -241,14 +242,14 @@ img[src*="Settings"] {
 
 /* Photo: 1160 × 660 */
 img[src*="Picture"] {
-  width: calc(var(--item-width) * 0.735) !important;
-  height: calc(var(--item-width) * 0.735 * 660 / 1160) !important;
+  width: calc(var(--item-width) * 0.82) !important;
+  height: calc(var(--item-width) * 0.82 * 660 / 1160) !important;
 }
 
 /* Music: 1160 × 796 (самая высокая) - уменьшена */
 img[src*="Music"] {
-  width: calc(var(--item-width) * 0.63) !important;
-  height: calc(var(--item-width) * 0.63 * 796 / 1160) !important;
+  width: calc(var(--item-width) * 0.72) !important;
+  height: calc(var(--item-width) * 0.72 * 796 / 1160) !important;
 }
 
 /* Video: 1160 × 684 - увеличена */
@@ -259,20 +260,50 @@ img[src*="Video"] {
 
 /* Game: 1160 × 620 (самая широкая) - увеличена */
 img[src*="GamePad"] {
-  width: calc(var(--item-width) * 0.8925) !important;
-  height: calc(var(--item-width) * 0.8925 * 620 / 1160) !important;
+  width: calc(var(--item-width) * 0.98) !important;
+  height: calc(var(--item-width) * 0.98 * 620 / 1160) !important;
 }
 
 /* Network: 1160 × 748 - уменьшена */
 img[src*="Network"] {
-  width: calc(var(--item-width) * 0.63) !important;
-  height: calc(var(--item-width) * 0.63 * 748 / 1160) !important;
+  width: calc(var(--item-width) * 0.585) !important;
+  height: calc(var(--item-width) * 0.585 * 748 / 1160) !important;
 }
 
 /* SdCard: 1:1 */
 img[src*="SdCard"] {
   width: calc(var(--item-width) * 0.347) !important;
   height: calc(var(--item-width) * 0.347) !important;
+}
+
+/* Cam: 1:1 */
+img[src*="Cam"] {
+  width: calc(var(--item-width) * 0.347) !important;
+  height: calc(var(--item-width) * 0.347) !important;
+}
+
+/* Share: 1:1 */
+img[src*="Share"] {
+  width: calc(var(--item-width) * 0.47) !important;
+  height: calc(var(--item-width) * 0.47) !important;
+}
+
+/* USB: 1:1 */
+img[src*="USB"] {
+  width: calc(var(--item-width) * 0.47) !important;
+  height: calc(var(--item-width) * 0.47) !important;
+}
+
+/* Update: 1:1 */
+img[src*="Update"] {
+  width: calc(var(--item-width) * 0.47) !important;
+  height: calc(var(--item-width) * 0.47) !important;
+}
+
+/* Web: 1:1 */
+img[src*="Web"] {
+  width: calc(var(--item-width) * 0.47) !important;
+  height: calc(var(--item-width) * 0.47) !important;
 }
 
 .item-main p {

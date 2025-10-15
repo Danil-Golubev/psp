@@ -6,21 +6,27 @@ export const defaultItems: MainOption[] = [
     icon: '/newicons/Settings.svg',
     semiOptions: [
       {
-        name: 'God of War',
-        icon: '/newicons/SdCard.svg',
-        data: <div>God of War info or launch screen</div>
+        name: 'USB Connection',
+        icon: '/newicons/USB.svg',
+        data: <div>USB connection settings</div>
       },
       {
-        name: 'GTA: Liberty City Stories',
-        icon: '/newicons/SdCard.svg',
-        data: <div>GTA LCS info or launch screen</div>
-      }
+        name: 'System Update',
+        icon: '/newicons/Update.svg',
+        data: <div>System update</div>
+      },
+      
     ]
   },
   {
     name: 'Photo',
     icon: '/newicons/Picture.svg',
     semiOptions: [
+      {
+        name: 'Camera',
+        icon: '/newicons/Cam.svg',
+        data: <div>Camera</div>
+      },
       {
         name: 'Memory Stick',
         icon: '/newicons/SdCard.svg',
@@ -55,6 +61,11 @@ export const defaultItems: MainOption[] = [
     icon: '/newicons/GamePad.svg',
     semiOptions: [
       {
+        name: 'Game Sharing',
+        icon: '/newicons/Share.svg',
+        data: <div>Game sharing</div>
+      },
+      {
         name: 'Display',
         icon: '/newicons/SdCard.svg',
         data: <div>Brightness, themes, etc.</div>
@@ -65,6 +76,11 @@ export const defaultItems: MainOption[] = [
     name: 'Network',
     icon: '/newicons/Network.svg',
     semiOptions: [
+      {
+        name: 'Internet Browser',
+        icon: '/newicons/Web.svg',
+        data: <div>Internet browser</div>
+      },
       {
         name: 'Display',
         icon: '/newicons/SdCard.svg',

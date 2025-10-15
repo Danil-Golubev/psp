@@ -189,10 +189,10 @@ export const Interface = () => {
             handlersRef.current.horizontal('r');
             break;
           case 'ArrowUp':
-            handlersRef.current.vertical('u');
+            handlersRef.current.vertical('d');
             break;
           case 'ArrowDown':
-            handlersRef.current.vertical('d');
+            handlersRef.current.vertical('u');
             break;
         }
       };
