@@ -55,6 +55,8 @@
   position: relative;
   justify-content: center;
   margin-left: calc(var(--item-width) * 1.1);
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 .item-main {
