@@ -5,6 +5,7 @@ import { WallPaper } from './components/Wallpaper/Wallpaper';
 import { PspModel } from './components/PspModel/PspModel';
 import './App.css';
 import { Interface } from './components/Interface/Interface';
+import { InterfaceHeader } from './components/InterfaceHeader/InterfaceHeader';
 
 export const App = () => {
   return (
@@ -19,6 +20,7 @@ export const App = () => {
           </Suspense>
         </Canvas>
         <div className="interface-overlay">
+          <InterfaceHeader />
           <Interface />
         </div>
       </div>

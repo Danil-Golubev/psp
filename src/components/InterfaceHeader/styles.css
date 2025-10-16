@@ -1,0 +1,49 @@
+* {
+  color: white;
+  font-size: calc(var(--base-size) * 2.5);
+}
+
+.mainBlock {
+  position: absolute;
+  right: calc(var(--base-size));
+  top: 0;
+  display: flex;
+  white-space: nowrap;
+  gap: calc(var(--base-size) * 2);
+}
+.battery {
+  display: flex;
+  align-items: center;
+  filter: brightness(0) invert(1)
+    drop-shadow(
+      calc(var(--base-size) * 0.8) calc(var(--base-size) * 0.8) calc(var(--base-size) * 0.8)
+        rgba(0, 0, 0, 0.8)
+    )
+    drop-shadow(0 0 calc(var(--base-size) * 1) rgba(255, 255, 255, 0.1));
+}
+.battery-content {
+  border: calc(var(--base-size) / 2) solid white;
+  width: calc(3.5 * var(--base-size));
+  height: calc(1.5 * var(--base-size));
+  display: flex;
+  gap: calc(var(--base-size) / 3);
+  padding: calc(var(--base-size) / 3);
+}
+.battery-part {
+  background: white;
+  height: calc(1 * var(--base-size));
+  width: calc(var(--base-size) / 1.5);
+}
+.battery .division {
+  background: white;
+  height: 100%;
+  width: 30%;
+}
+
+.date,
+.time {
+  text-shadow: calc(var(--base-size) * 0.8) calc(var(--base-size) * 0.8)
+      calc(var(--base-size) * 0.8) rgba(0, 0, 0, 0.8),
+    calc(var(--base-size) * -0.3) calc(var(--base-size) * -0.3) calc(var(--base-size) * 0.5)
+      rgba(255, 255, 255, 0.4);
+}
