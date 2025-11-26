@@ -1,5 +1,9 @@
 :root {
-  --base-size: 0.5vw;
+  --scale-factor: 0.85;
+  /* Базовый размер динамически обновляется компонентом ScaleSync */
+  /* для синхронизации с масштабированием в three.js */
+  /* Значение по умолчанию для начальной загрузки (увеличено для лучшей видимости) */
+  --base-size: 0.6vw;
   --item-width: calc(var(--base-size) * 20);
   --item-height: calc(var(--base-size) * 10);
   --selected-width: calc(var(--base-size) * 23.75);
@@ -11,6 +15,8 @@
   --wallpaper-width: calc(var(--item-width) * var(--items-count));
   --wallpaper-height: calc(var(--item-height) * 4);
 }
+
+/* Медиа-запросы удалены - масштабирование теперь обрабатывается динамически через ScaleSync */
 
 .wallpaper-container {
   width: 80%;
@@ -57,6 +63,7 @@
   margin-left: calc(var(--item-width) * 1.1);
   will-change: transform;
   backface-visibility: hidden;
+  transition: transform 0.37s cubic-bezier(0.2, 0.9, 0.22, 1);
 }
 
 .item-main {
